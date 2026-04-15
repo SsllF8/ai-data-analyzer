@@ -1,107 +1,155 @@
-# 🤖 AI 数据分析助手
+# 📊 AI Data Analysis Assistant
 
-一个基于 **LangChain + DeepSeek + Pandas** 构建的智能数据分析工具。用户只需上传 Excel/CSV 数据文件，用自然语言提出分析需求，AI 会自动生成 Python 代码、执行分析并生成可视化图表。
+> An intelligent data analysis tool that combines LLM-powered insights with programmatic data processing. Upload your data, ask questions in natural language, and get both AI analysis and executable Python charts.
 
-## ✨ 功能特点
+![Streamlit](https://img.shields.io/badge/Streamlit-1.40+-red?logo=streamlit)
+![LangChain](https://img.shields.io/badge/LangChain-0.3+-green?logo=chainlink)
+![DeepSeek](https://img.shields.io/badge/DeepSeek-API-blue)
+![pandas](https://img.shields.io/badge/pandas-2.0+-blue?logo=pandas)
+![matplotlib](https://img.shields.io/badge/matplotlib-3.8+-orange)
 
-- 📁 **多格式支持**：支持 CSV、Excel（.xlsx/.xls）文件上传
-- 🗣️ **自然语言交互**：用中文描述你的分析需求即可，无需编写代码
-- 🤖 **AI 自动编程**：基于 LangChain + DeepSeek 大模型，自动生成分析代码
-- 📊 **自动可视化**：自动生成折线图、柱状图、饼图、散点图等多种图表
-- 🧠 **智能洞察**：一键生成数据整体洞察报告
-- 💻 **代码可追溯**：可展开查看 AI 生成的 Python 代码
+## 🎯 Use Cases
 
-## 🎯 支持的分析类型
+### Business Scenarios
+- **Sales Analysis** — Upload monthly/quarterly sales data in Excel, ask "Which product had the highest growth?" or "Show me the regional sales comparison"
+- **Financial Reporting** — Load financial statements and ask the AI to identify trends, anomalies, and key metrics
+- **KPI Monitoring** — Import team performance data and get instant summaries, highlight outliers, and track progress against targets
+- **Survey Analysis** — Upload survey results and ask for sentiment breakdowns, demographic correlations, and actionable insights
 
-| 类型 | 示例 |
-|------|------|
-| 数据统计 | "各产品的平均单价？" "上个月的总销售额？" |
-| 趋势分析 | "画一个各月销售额的折线图" |
-| 对比分析 | "按区域分组统计销售额并画柱状图" |
-| 分布分析 | "用饼图展示各产品销量占比" |
-| 相关性分析 | "数量和利润的关系？" |
-| 数据洞察 | "帮我总结这份数据的关键趋势" |
+### Personal Scenarios
+- **Personal Finance Tracking** — Import your expense records (CSV/Excel) and ask the AI to categorize spending, find savings opportunities, or visualize monthly trends
+- **Fitness & Health Data** — Analyze workout logs, sleep data, or nutrition records to find patterns and optimization suggestions
+- **Academic Research** — Process experiment data, generate statistical summaries, and create publication-quality charts
 
-## 🛠️ 技术栈
+### Key Differentiator
+Unlike traditional BI tools that require writing SQL or learning complex interfaces, this tool lets you **ask questions in plain language** — the AI understands your intent and generates both text analysis and Python code to create charts.
 
-| 组件 | 技术 |
-|------|------|
-| LLM 大模型 | DeepSeek（通过 LangChain 调用） |
-| AI 编排框架 | LangChain |
-| 数据处理 | Pandas + NumPy |
-| 数据可视化 | Matplotlib |
-| Web 界面 | Streamlit |
-| 运行环境 | Python 3.13+ |
+## ✨ Features
 
-## 📁 项目结构
+### Core Capabilities
+- 📁 **Excel/CSV Upload** — Drag and drop your data files (`.xlsx`, `.csv`, `.xls`)
+- 📊 **Auto Data Summary** — Instantly see row count, column types, missing values, basic statistics
+- 💬 **Natural Language Q&A** — Ask anything about your data in plain English or Chinese
+- 🤖 **AI-Powered Analysis** — DeepSeek identifies trends, outliers, and patterns with detailed explanations
+- 📈 **Auto Chart Generation** — AI writes Python code to create matplotlib visualizations on the fly
+- 💾 **Sample Data Included** — Comes with a sample sales dataset to get started immediately
+
+### Analysis Examples
+Ask the AI things like:
+- "哪个月份的销售额最高？增长趋势如何？"
+- "各个产品类别的销售占比是多少？画个饼图"
+- "找出销售额异常的月份，分析可能的原因"
+- "对比不同区域的销售表现，生成柱状图"
+- "总结这份数据的关键发现和业务建议"
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────┐
+│              Streamlit Web UI                    │
+│  ┌──────────┐  ┌───────────┐  ┌─────────────┐  │
+│  │  Upload  │  │   Chat    │  │  Chart View │  │
+│  │  Data    │  │  Q&A      │  │  (matplot)  │  │
+│  └────┬─────┘  └─────┬─────┘  └──────┬──────┘  │
+└───────┼──────────────┼────────────────┼─────────┘
+        │              │                │
+┌───────▼──────────────▼────────────────▼─────────┐
+│                 Data Engine                       │
+│  ┌──────────────┐  ┌──────────────────────────┐ │
+│  │  pandas      │  │  LangChain + DeepSeek    │ │
+│  │  (Data I/O)  │  │  (Analysis Agent)        │ │
+│  └──────────────┘  └──────────────────────────┘ │
+└─────────────────────────────────────────────────┘
+        │                          │
+        ▼                          ▼
+┌──────────────┐        ┌──────────────────────┐
+│  Excel/CSV   │        │  DeepSeek API        │
+│  Files       │        │  (Code + Insights)   │
+└──────────────┘        └──────────────────────┘
+```
+
+## 📁 Project Structure
 
 ```
 ai-data-analyzer/
-├── app.py                    # Streamlit Web 前端界面
-├── data_engine.py            # 核心引擎（AI 代码生成、执行、图表渲染）
-├── generate_sample_data.py   # 示例数据生成脚本
-├── requirements.txt          # Python 依赖
-├── .env.example              # 环境变量模板
-├── 启动应用.bat              # Windows 一键启动脚本
-├── sample_data/              # 示例数据目录
-│   └── 2025年销售数据.xlsx
-└── README.md
+├── app.py                    # Streamlit web interface
+├── data_engine.py            # Data processing + AI analysis engine
+├── generate_sample_data.py   # Script to generate sample dataset
+├── requirements.txt          # Python dependencies
+├── .env.example              # Environment variables template
+├── sample_data/
+│   └── 2025年销售数据.xlsx   # Sample sales dataset
+└── screenshots/              # UI screenshots
 ```
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 1. 环境准备
+### Prerequisites
+- Python 3.9+
+- DeepSeek API Key ([Get one here](https://platform.deepseek.com))
+
+### Installation
 
 ```bash
-# 创建虚拟环境
+# 1. Clone the repository
+git clone https://github.com/SsllF8/ai-data-analyzer.git
+cd ai-data-analyzer
+
+# 2. Create virtual environment
 python -m venv .venv
+.venv\Scripts\activate      # Windows
 
-# 激活虚拟环境
-# Windows:
-.venv\Scripts\activate
-# macOS/Linux:
-source .venv/bin/activate
-
-# 安装依赖
+# 3. Install dependencies
 pip install -r requirements.txt
-```
 
-### 2. 配置 API Key
+# 4. Configure environment
+cp .env.example .env
+# Edit .env and fill in your DEEPSEEK_API_KEY
 
-复制 `.env.example` 为 `.env`，填入你的 DeepSeek API Key：
-
-```env
-DEEPSEEK_API_KEY=sk-your-api-key-here
-DEEPSEEK_BASE_URL=https://api.deepseek.com
-```
-
-> 💡 前往 [DeepSeek 开放平台](https://platform.deepseek.com/) 注册并获取 API Key
-
-### 3. 运行
-
-```bash
+# 5. Run the application
 streamlit run app.py
 ```
 
-或者直接双击 `启动应用.bat`（Windows）。
+Or simply double-click `启动应用.bat` on Windows.
 
-浏览器会自动打开 `http://localhost:8501`。
+### Try It Out
 
-## 🔄 工作流程
+1. Launch the app → Click "使用示例数据" to load the included sales dataset
+2. In the chat box, try asking:
+   - "帮我分析这份数据的整体趋势"
+   - "画一个各月销售额的柱状图"
+   - "哪个产品类别表现最好？"
+   - "找出异常数据并分析原因"
 
-```
-用户上传数据文件 → AI 理解数据结构 → 用户自然语言提问
-       ↓
-AI 生成 Python 分析代码 → 安全沙箱执行代码 → 返回图表 + 文字结论
-```
+## ⚙️ Configuration
 
-### 核心流程说明
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `DEEPSEEK_API_KEY` | ✅ | Your DeepSeek API key |
+| `DEEPSEEK_BASE_URL` | ❌ | API base URL (defaults to `https://api.deepseek.com`) |
 
-1. **数据加载**：用户上传文件后，系统自动解析并生成数据概览（列名、类型、统计信息）
-2. **代码生成**：将数据概览和用户问题一起发送给 DeepSeek，AI 生成完整的 Python 分析代码
-3. **代码执行**：在隔离环境中执行生成的代码，捕获 print 输出和生成的图表
-4. **结果展示**：在 Web 界面展示图表、分析结论，并可展开查看生成的代码
+## 🛠️ Tech Stack
+
+| Component | Technology | Purpose |
+|-----------|-----------|---------|
+| Web Framework | Streamlit | Interactive data visualization UI |
+| AI Framework | LangChain | Agent orchestration & tool binding |
+| LLM | DeepSeek | Natural language understanding & code generation |
+| Data Processing | pandas | Data loading, cleaning, aggregation |
+| Visualization | matplotlib | Dynamic chart generation |
+| File Parsing | openpyxl | Excel file reading |
+
+## 🔧 How It Works
+
+1. **Data Loading** — pandas reads Excel/CSV files and generates a statistical summary
+2. **User Query** — User asks a question in natural language via the chat interface
+3. **AI Analysis** — LangChain Agent receives the data schema and user query, then:
+   - Generates pandas code to analyze the data
+   - Executes the code safely in a sandboxed environment
+   - Interprets results and writes a human-readable analysis
+   - Creates matplotlib charts when visualization is requested
+4. **Result Display** — Charts are rendered inline, analysis text appears in the chat
 
 ## 📄 License
 
-MIT License
+This project is licensed under the MIT License.
