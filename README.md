@@ -126,7 +126,7 @@ Windows 用户也可以直接双击 `启动应用.bat`。
    - 当用户要求可视化时，创建 matplotlib 图表
 4. **结果展示** — 图表内嵌渲染，分析文字显示在聊天中
 
-### 💡 面试要点 / Interview Talking Points
+### 💡 项目亮点 / Project Highlights
 
 **1. 为什么用 Agent 模式而不是写死分析逻辑？**
 - Agent 模式下，AI 可以根据用户提问**动态生成**分析代码，不需要预先定义所有分析场景
@@ -242,7 +242,7 @@ streamlit run app.py
 | `DEEPSEEK_API_KEY` | ✅ | Your DeepSeek API key |
 | `DEEPSEEK_BASE_URL` | ❌ | API base URL (defaults to `https://api.deepseek.com`) |
 
-### Interview Talking Points
+### Project Highlights
 
 **1. Why Agent mode instead of hardcoded analysis?**
 - AI dynamically generates analysis code for any question — no need to pre-define scenarios
